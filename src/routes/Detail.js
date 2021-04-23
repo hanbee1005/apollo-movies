@@ -7,15 +7,17 @@ import styled from "styled-components";
 const GET_MOVIE = gql`
     query getMovie($id: Int!){
         movie(id: $id) {
-            title
-            medium_cover_image
-            language
-            rating
-            description_intro
+          id
+          title
+          medium_cover_image
+          language
+          rating
+          description_intro
+          isLiked @client
         }
         suggestions(id: $id) {
-            id
-            medium_cover_image
+          id
+          medium_cover_image
         }
     }
 `;
@@ -70,7 +72,7 @@ export default () => {
                 <Title>
                     {loading
                         ? "Loading..."
-                        : `${data?.movie?.title}`
+                        : `${data?.movie?.title} ${data.movie.isLiked ? "😍" : "😞"}`
                     }
                 </Title>
                 <Subtitle>
